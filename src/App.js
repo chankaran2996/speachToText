@@ -84,64 +84,92 @@
 
 
 
-import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
+// import React, { useState, useEffect, useRef } from "react";
+// import "./App.css";
 
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
-const mic = new SpeechRecognition();
+// const SpeechRecognition =
+//   window.SpeechRecognition || window.webkitSpeechRecognition;
+// const mic = new SpeechRecognition();
 
-mic.continuous = true;
-mic.interimResults = true;
-mic.lang = "auto";
+// mic.continuous = true;
+// mic.interimResults = true;
+// mic.lang = "en-IN";
+
+// function App() {
+//   const [note, setNote] = useState("");
+//   const recognitionStartedRef = useRef(false);
+
+//   useEffect(() => {
+//     const handleListen = () => {
+//       mic.onresult = (event) => {
+//         const transcript = Array.from(event.results)
+//           .map((result) => result[0])
+//           .map((result) => result.transcript)
+//           .join("");
+
+//         setNote(transcript);
+//       };
+
+//       mic.onerror = (event) => {
+//         console.log(event.error);
+//       };
+
+//       if (!recognitionStartedRef.current) {
+//         mic.start();
+//         recognitionStartedRef.current = true;
+//       }
+//     };
+
+//     handleListen();
+
+//     // Clean up event listeners
+//     return () => {
+//       mic.onresult = null;
+//       mic.onerror = null;
+//     };
+//   }, []);
+
+//   return (
+//     <>
+//       <h1>Voice Notes</h1>
+//       <div className="container">
+//         <div className="box">
+//           <h2>Current Note</h2>
+//           <span>🎙️</span>
+//           <p>{note}</p>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+import React,{useEffect} from 'react';
 
 function App() {
-  const [note, setNote] = useState("");
-  const recognitionStartedRef = useRef(false);
-
   useEffect(() => {
-    const handleListen = () => {
-      mic.onresult = (event) => {
-        const transcript = Array.from(event.results)
-          .map((result) => result[0])
-          .map((result) => result.transcript)
-          .join("");
-
-        setNote(transcript);
-      };
-
-      mic.onerror = (event) => {
-        console.log(event.error);
-      };
-
-      if (!recognitionStartedRef.current) {
-        mic.start();
-        recognitionStartedRef.current = true;
-      }
-    };
-
-    handleListen();
-
-    // Clean up event listeners
-    return () => {
-      mic.onresult = null;
-      mic.onerror = null;
-    };
-  }, []);
+    navigator.usb.getDevices().then((devices) => {
+      console.log(`Total devices: ${devices.length}`);
+      devices.forEach((device) => {
+        console.log(
+          `Product name: ${device.productName}, serial number ${device.serialNumber}`,
+        );
+      });
+    });
+          });
 
   return (
-    <>
-      <h1>Voice Notes</h1>
-      <div className="container">
-        <div className="box">
-          <h2>Current Note</h2>
-          <span>🎙️</span>
-          <p>{note}</p>
-        </div>
-      </div>
-    </>
-  );
+    <div>
+
+    </div>
+  )
 }
 
-export default App;
 
+export default App;
